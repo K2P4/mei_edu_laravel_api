@@ -15,12 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->integer('isAdmin')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('age')->nullable();
-            $table->text('address')->nullable();
-            $table->enum('gender',['male','female'])->nullable();
-            $table->string('profile')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

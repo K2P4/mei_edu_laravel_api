@@ -20,11 +20,13 @@ class ContactController extends Controller
     {
         $this->contactRepo = $contactRepo;
     }
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $contacts = $this->contactRepo->allContacts();
-            return $this->success('success', ContactResource::collection($contacts), 'Contact Fetched Successfully', 200);
+            $search = $request->query('search'); 
+            $contacts = $this->contactRepo->allContacts($search);
+            return ContactResource::collection($contacts); 
+            // return $this->success('success', ContactResource::collection($contacts), 'Contact Fetched Successfully', 200);
         } catch (\Exception $e) {
             return $this->fail('error', null, $e->getMessage(), 500);
         }

@@ -7,9 +7,18 @@ use App\Models\Contact;
 class ContactRepository
 {
 
-    public function allContacts()
+    public function allContacts($search = null)
     {
-        return Contact::all();
+        $query = Contact::query();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        return $query->paginate(2);
     }
 
     public function createContact($data)

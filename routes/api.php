@@ -23,4 +23,5 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('v1')->group(function () {
     Route::apiResource('contacts', ContactController::class);
+    Route::apiResource('volunteers', ContactController::class);
 });

@@ -15,8 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('image');
+            $table->string('image', 512)->nullable();
             $table->string('phone')->nullable();
+            $table->string('position')->nullable();
+            $table->string('batch')->nullable();
+            $table->string('dob')->nullable();
+            $table->string('team')->nullable();
+            $table->string('department')->nullable();
             $table->timestamps();
         });
     }

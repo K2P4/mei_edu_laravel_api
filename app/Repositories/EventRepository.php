@@ -27,7 +27,7 @@ class EventRepository
 
     public function getById(Event $event)
     {
-        return $event;
+        return $event->load('images');
     }
 
     public function updateEvent($data, $event)
@@ -41,4 +41,4 @@ class EventRepository
         $event->delete();
         return $event;
     }
-} 
+}

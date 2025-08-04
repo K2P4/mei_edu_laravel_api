@@ -24,11 +24,9 @@ class StoreEventRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'volunteer_id' => 'nullable|exists:volunteers,id',
-            'duration' => 'nullable|string|max:100',
-            'status' => 'nullable|in:active,inactive,draft',
-            'level' => 'nullable|in:beginner,intermediate,advanced',
+            'images' => 'nullable|array',
+                        'start_date' => 'nullable',
+
         ];
     }
 }

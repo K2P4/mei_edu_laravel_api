@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EventResource extends JsonResource
+class EventImageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,7 @@ class EventResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'start_date' => $this->start_date ? Carbon::parse($this->start_date)->format('Y-m-d') : null,
-            'images' => EventImageResource::collection($this->images), 
+            'image_path' => asset('storage/' . $this->image_path),
 
         ];
     }

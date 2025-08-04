@@ -25,6 +25,8 @@ class UpdateEventRequest extends FormRequest
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'start_date' => 'nullable',
+            'images' => 'nullable|array',
+
 
         ];
     }

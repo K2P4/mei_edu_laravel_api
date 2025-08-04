@@ -37,13 +37,18 @@ class EventController extends Controller
     {
         try {
             $validatedData = $request->validated();
+            $images = $request->file('images');
+            $event = $this->eventRepo->createEvent($validatedData);
 
-            if ($request->hasFile('image')) {
-                $photoPath = $request->file('image')->store('events', 'public');
-                $validatedData['image'] = asset('storage/' . $photoPath);
+            if (!empty($images)) {
+                foreach ($images as $image) {
+                    $path = $image->store('events', 'public');
+                    $event->images()->create([
+                        'image_path' => $path
+                    ]);
+                }
             }
 
-            $event = $this->eventRepo->createEvent($validatedData);
             $createdEvent = $this->eventRepo->getById($event);
 
             return $this->success('success', EventResource::make($createdEvent), 'Event Created Successfully', 201);
@@ -51,6 +56,7 @@ class EventController extends Controller
             return $this->fail('error', null, $e->getMessage(), 500);
         }
     }
+
 
     public function show(Event $event)
     {
@@ -66,37 +72,47 @@ class EventController extends Controller
     {
         try {
             $validatedData = $request->validated();
-            
-            if ($request->hasFile('image')) {
-                if ($event->image && Storage::disk('public')->exists($event->image)) {
-                    $dirPath = dirname($event->image);
-                    Storage::disk('public')->deleteDirectory($dirPath);
-                }
-
-                $photoPath = $request->file('image')->store('events', 'public');
-                $validatedData['image'] = asset('storage/' . $photoPath);
-            }
+            $images = $request->file('images');
 
             $event = $this->eventRepo->updateEvent($validatedData, $event);
+
+            if ($images) {
+                foreach ($event->images as $existing) {
+                    Storage::disk('public')->delete($existing->image_path);
+                    $existing->delete();
+                }
+
+                foreach ($images as $image) {
+                    $path = $image->store('events', 'public');
+                    $event->images()->create([
+                        'image_path' => $path
+                    ]);
+                }
+            }
+
             $updatedEvent = $this->eventRepo->getById($event);
 
-            return $this->success('success', EventResource::make($updatedEvent), 'Event Updated Successfully', 200);
+            return $this->success('success', new EventResource($event->load('images')), 'Event Updated Successfully', 200);
         } catch (\Exception $e) {
             return $this->fail('error', null, $e->getMessage(), 500);
         }
     }
 
+
     public function destroy(Event $event)
     {
         try {
-            if ($event->image && Storage::disk('public')->exists($event->image)) {
-                $dirPath = dirname($event->image);
-                Storage::disk('public')->deleteDirectory($dirPath);
+            foreach ($event->images as $image) {
+                Storage::disk('public')->delete($image->image_path);
             }
-            $event = $this->eventRepo->deleteById($event);
+
+            $event->images()->delete();
+
+            $this->eventRepo->deleteById($event);
+
             return $this->success('success', null, 'Event Deleted Successfully', 204);
         } catch (\Exception $e) {
             return $this->fail('error', null, $e->getMessage(), 500);
         }
     }
-} 
+}

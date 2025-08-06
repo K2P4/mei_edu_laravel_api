@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\VolunteerController;
+use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\EventController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +27,8 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('v1')->group(function () {
     Route::apiResource('contacts', ContactController::class);
-    Route::apiResource('volunteers', ContactController::class);
+    Route::apiResource('volunteers', VolunteerController::class);
+    Route::apiResource('courses', CourseController::class);
+    Route::apiResource('events', EventController::class);
+    Route::get('dashboard', [DashboardController::class, 'index']);
 });

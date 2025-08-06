@@ -18,7 +18,7 @@ class ContactRepository
             });
         }
 
-        return $query->paginate(2);
+        return $query->paginate(30);
     }
 
     public function createContact($data)

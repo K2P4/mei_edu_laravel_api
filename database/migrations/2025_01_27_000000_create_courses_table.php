@@ -16,7 +16,11 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->string('image', 512)->nullable();
-            $table->foreignId('volunteer_id')->constrained()->cascadeOnDelete();
+            $table->unsignedBigInteger('volunteer_id');
+            $table->foreign('volunteer_id')
+                ->references('id')
+                ->on('volunteers')
+                ->onDelete('cascade');
             $table->string('duration')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->enum('level', ['beginner', 'intermediate', 'advanced'])->nullable();

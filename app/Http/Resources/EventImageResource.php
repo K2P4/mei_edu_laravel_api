@@ -17,7 +17,7 @@ class EventImageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image_path' => asset('storage/' . $this->image_path),
+            'image_path' => asset('public/storage/' . $this->image_path),
 
         ];
     }

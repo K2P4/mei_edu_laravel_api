@@ -40,7 +40,7 @@ class CourseController extends Controller
 
             if ($request->hasFile('image')) {
                 $photoPath = $request->file('image')->store('courses', 'public');
-                $validatedData['image'] = asset('storage/' . $photoPath);
+                $validatedData['image'] = asset('public/storage/' . $photoPath);
             }
 
             $course = $this->courseRepo->createCourse($validatedData);
@@ -74,7 +74,7 @@ class CourseController extends Controller
                 }
 
                 $photoPath = $request->file('image')->store('courses', 'public');
-                $validatedData['image'] = asset('storage/' . $photoPath);
+                $validatedData['image'] = asset('public/storage/' . $photoPath);
             }
 
             $course = $this->courseRepo->updateCourse($validatedData, $course);

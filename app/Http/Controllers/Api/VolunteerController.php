@@ -42,7 +42,7 @@ class VolunteerController extends Controller
 
             if ($request->hasFile('image')) {
                 $photoPath = $request->file('image')->store('volunteers', 'public');
-                $validatedData['image'] =  asset('storage/' . $photoPath);
+                $validatedData['image'] =  asset('public/storage/' . $photoPath);
             }
 
             $volunteer = $this->volunteerRepo->createVolunteer($validatedData);
@@ -76,7 +76,7 @@ class VolunteerController extends Controller
                 }
 
                 $photoPath = $request->file('image')->store('volunteers', 'public');
-                $validatedData['image'] = asset('storage/' . $photoPath);
+                $validatedData['image'] = asset('public/storage/' . $photoPath);
             }
 
             $volunteer = $this->volunteerRepo->updateVolunteer($validatedData, $volunteer);

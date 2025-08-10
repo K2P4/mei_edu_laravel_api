@@ -3,6 +3,9 @@
 /public/build
 /public/hot
 /public/storage
+/public/index.php
+/public/.htaccess
+/public/favicon.ico
 /storage/*.key
 /storage/pail
 /vendor

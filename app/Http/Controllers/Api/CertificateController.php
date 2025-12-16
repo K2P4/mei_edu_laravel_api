@@ -10,7 +10,8 @@ class CertificateController extends Controller
 {
     public function verify($volunteerId)
     {
-        $volunteer = Volunteer::where('volunteer_id', $volunteerId);
+
+        $volunteer = Volunteer::where('volunteer_id', $volunteerId)->first();
         
         if(!$volunteer) {
             return response()->json([

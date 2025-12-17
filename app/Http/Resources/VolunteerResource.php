@@ -26,6 +26,8 @@ class VolunteerResource extends JsonResource
             'team' => $this->team,
             'batch' => $this->batch,
             'department' => $this->department,
+            'gender' => $this->gender,
+            'volunteer_id' => $this->volunteer_id,
         ];
     }
 }

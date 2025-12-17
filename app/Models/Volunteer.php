@@ -16,6 +16,8 @@ class Volunteer extends Model
         'dob',
         'team',
         'department',
+        'gender',
+        'volunteer_id',
     ];
 
     protected function casts(): array

@@ -32,7 +32,8 @@ class UpdateVolunteerRequest extends FormRequest
             'batch' => 'nullable|string|max:20',
             'position' => 'nullable|string|max:255',
             'gender' => 'required|in:male,female,other',
-            'volunteer_id' => 'required|string|max:50'
+            'volunteer_id' => 'required|string|max:50|unique:volunteers,volunteer_id'
+
         ];
     }
 }

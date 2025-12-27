@@ -25,6 +25,7 @@ class CertificateController extends Controller
             'batch' => $volunteer->batch,
             'volunteer_id' => $volunteer->volunteer_id,
             'issued_date' => $volunteer->created_at->format('d-m-Y'),
+            'rating' => $volunteer->rating,
             'image' => $volunteer->image,
         ]);
     }

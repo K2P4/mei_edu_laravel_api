@@ -32,7 +32,8 @@ class StoreVolunteerRequest extends FormRequest
             'batch' => 'nullable|string|max:20',
             'position' => 'nullable|string|max:255',
             'gender' => 'required|in:male,female,other',
-            'volunteer_id' => 'required|string|max:50|unique:volunteers,volunteer_id'
+            'volunteer_id' => 'required|string|max:50|unique:volunteers,volunteer_id',
+            'rating' => 'nullable|integer|min:0|max:100',
 
         ];
     }

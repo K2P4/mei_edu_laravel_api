@@ -18,6 +18,7 @@ class Volunteer extends Model
         'department',
         'gender',
         'volunteer_id',
+        'rating',
     ];
 
     protected function casts(): array
